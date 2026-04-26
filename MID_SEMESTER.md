@@ -141,6 +141,7 @@ Measures structural and perceptual similarity, better aligns with human percepti
 - Failure modes (blurriness, color mismatch, temporal inconsistency)
 
 ## 5. Diffusion Inpainting Taxonomy
+```text
 Diffusion Inpainting
 │
 ├── 1. Conditioning Strategy
@@ -193,6 +194,7 @@ Diffusion Inpainting
     ├── Mask-weighted loss
     ├── Perceptual / adversarial loss
     └── CLIP-aligned loss
+```
 
 ## 7. Paper Comparisons: RePaint vs Stable Diffusion Inpainting vs ControlNet
 
