@@ -140,6 +140,80 @@ Measures structural and perceptual similarity, better aligns with human percepti
 - Semantic plausibility (does content "make sense"?)
 - Failure modes (blurriness, color mismatch, temporal inconsistency)
 
+## 5. Diffusion Inpainting Taxonomy
+Diffusion Inpainting
+│
+├── 1. Conditioning Strategy
+│   ├── Training-time (mask-aware models)
+│   └── Inference-time (RePaint, plug-and-play)
+│
+├── 2. Diffusion Space
+│   ├── Pixel (DDPM)
+│   ├── Latent (LDM)
+│   ├── Multi-scale
+│   └── Hybrid (latent + pixel refinement)
+│
+├── 3. Mask Representation
+│   ├── Binary mask
+│   ├── Soft/blurred mask
+│   ├── Progressive masks
+│   └── Learned mask embeddings
+│
+├── 4. Constraint Enforcement
+│   ├── Hard (pixel preservation)
+│   ├── Soft (loss-based)
+│   ├── Hybrid
+│   └── Projection-based constraints
+│
+├── 5. Region Interaction
+│   ├── Independent generation
+│   ├── Step-wise blending
+│   └── Joint modeling (full image)
+│
+├── 6. Guidance Mechanism
+│   ├── None (unconditional)
+│   ├── Text (CFG)
+│   ├── Structural (edges, depth)
+│   └── Semantic (segmentation, layout)
+│
+├── 7. Sampling Strategy
+│   ├── Standard diffusion
+│   ├── Resampling (RePaint)
+│   ├── Posterior sampling
+│   └── Deterministic (DDIM)
+│
+├── 8. Model Type
+│   ├── Unconditional diffusion
+│   ├── Conditional diffusion (mask-aware)
+│   ├── Fine-tuned inpainting models
+│   └── Plug-and-play methods
+│
+└── 9. Training Objective (optional axis)
+    ├── Noise prediction (DDPM loss)
+    ├── Mask-weighted loss
+    ├── Perceptual / adversarial loss
+    └── CLIP-aligned loss
+
+## 7. Paper Comparisons: RePaint vs Stable Diffusion Inpainting vs ControlNet
+
+| Dimension | RePaint | Stable Diffusion Inpainting | ControlNet (with Inpainting) |
+|-----------|---------|-----------------------------|------------------------------|
+| Conditioning Strategy | Inference-time only (no retraining) | Training-time (mask-aware finetuned model) | Training-time + strong conditional control |
+| Diffusion Space | Pixel space (DDPM) | Latent space (LDM) | Latent space (LDM) |
+| Mask Handling | Binary mask + iterative resampling | Binary mask concatenated as input | Mask + additional control signals |
+| Constraint Enforcement | Hard constraint via resampling of known pixels | Hybrid (implicit via training + CFG) | Hybrid (strong control via conditioning maps) |
+| Region Interaction | Step-wise blending (known + generated) | Joint modeling in latent space | Joint modeling with external control |
+| Guidance | None (unconditional) | Text guidance (CFG) | Structural + semantic guidance (edges, depth, pose) |
+| Sampling Strategy | Resampling (key contribution) | DDIM / standard schedulers | DDIM / advanced schedulers |
+| Model Type | Unconditional pretrained diffusion | Conditional pretrained inpainting model | Conditional model with auxiliary control network |
+| Strengths | No training required, flexible | Fast, practical, high-quality outputs | Precise structural control, high fidelity |
+| Weaknesses | Slow, less semantic control | Limited structural control | More complex, heavier compute |
+
+### Key Insights
+- **RePaint** demonstrates that *sampling alone* can enable inpainting without retraining.
+- **Stable Diffusion Inpainting** (your baseline) provides the best trade-off between quality and simplicity.
+- **ControlNet** extends diffusion with *explicit structural guidance*, making it ideal for controlled generation tasks.
+
 ## References
 1. Andreas Lugmayr et al., RePaint: Inpainting using Denoising Diffusion Probabilistic Models, arXiv:2201.09865, 2022. https://arxiv.org/abs/2201.09865
 2. Aromal M A, How to Customize any Diffusion Models for Inpainting, Medium, 2024. https://medium.com/@aromalma/how-to-customize-any-diffusion-models-for-inpainting-178111b239cd
