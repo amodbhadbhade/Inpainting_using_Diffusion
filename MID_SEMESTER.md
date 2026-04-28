@@ -200,7 +200,7 @@ Diffusion Inpainting
     └── CLIP-aligned loss
 ```
 
-## 7. Paper Comparisons: RePaint vs Stable Diffusion Inpainting vs ControlNet
+## 6. Paper Comparisons: RePaint vs Stable Diffusion Inpainting vs ControlNet
 
 | Dimension | RePaint | Stable Diffusion Inpainting | ControlNet (with Inpainting) |
 |-----------|---------|-----------------------------|------------------------------|
